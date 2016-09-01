@@ -492,103 +492,165 @@ public class Maze3D
 		}
 	}
 		
-		public Position getStartPosition() {
-			return start;
-		}
+	public Position getStartPosition() {
+		return start;
+	}
 
-		public void setStart(Position start) {
-			this.start=start;
-		}
+	public void setStart(Position start) {
+		this.start=start;
+	}
 
-		public void setGoal(Position goal) {
-			this.goal = goal;
-		}
-		public int[][] getCrossSectionByX(int n) throws IndexOutOfBoundsException
-		{
-			int[][] maze2d = new int[this.getyAxis()][this.getzAxis()];
-			
-				for (int j = 0; j < this.getyAxis(); ++j)
-					for (int k=  0; k < this.getzAxis(); ++k)
-					{
-						maze2d[j][k] = this.getMaze()[n][j][k];
-					}
-			return maze2d;
-		}
+	public void setGoal(Position goal) {
+		this.goal = goal;
+	}
+	public int[][] getCrossSectionByX(int n) throws IndexOutOfBoundsException
+	{
+		int[][] maze2d = new int[this.getyAxis()][this.getzAxis()];
 		
-		public int[][] getCrossSectionByY(int n) throws IndexOutOfBoundsException
-		{
-			int[][] maze2d = new int[this.getxAxis()][this.getzAxis()];
-			
-				for (int j = 0; j < this.getxAxis(); ++j)
-					for (int k=  0; k < this.getzAxis(); ++k)
-					{
-						maze2d[j][k] = this.getMaze()[j][n][k];
-					}
-			return maze2d;
-		}
-		
-		public int[][] getCrossSectionByZ(int n) throws IndexOutOfBoundsException
-		{
-			int[][] maze2d = new int[this.getxAxis()][this.getyAxis()];
-			
-				for (int j = 0; j < this.getxAxis(); ++j)
-					for (int k=  0; k < this.getyAxis(); ++k)
-					{
-						maze2d[j][k] = this.getMaze()[j][k][n];
-					}
-			return maze2d;
-		}
-		
-		public int getxAxis() {
-			return xAxis;
-		}
-
-		public void setxAxis(int xAxis) {
-			this.xAxis = xAxis;
-		}
-
-		public int getyAxis() {
-			return yAxis;
-		}
-
-		public void setyAxis(int yAxis) {
-			this.yAxis = yAxis;
-		}
-
-		public int getzAxis() {
-			return zAxis;
-		}
-
-		public void setzAxis(int zAxis) {
-			this.zAxis = zAxis;
-		}
-
-		public int[][][] getMaze() {
-			return maze;
-		}
-
-		public void setMaze(int[][][] maze) {
-			this.maze = maze;
-		}
-
-		public Position getStart() {
-			return start;
-		}
-
-		public Position getGoal() {
-			return goal;
-		}	
+			for (int j = 0; j < this.getyAxis(); ++j)
+				for (int k=  0; k < this.getzAxis(); ++k)
+				{
+					maze2d[j][k] = this.getMaze()[n][j][k];
+				}
+		return maze2d;
+	}
 	
-		public Position getCurrent() {
-			return current;
-		}
-
-		public void setCurrent(Position current) {
-			this.current = current;
-		}
-
-
+	public int[][] getCrossSectionByY(int n) throws IndexOutOfBoundsException
+	{
+		int[][] maze2d = new int[this.getxAxis()][this.getzAxis()];
 		
-			
+			for (int j = 0; j < this.getxAxis(); ++j)
+				for (int k=  0; k < this.getzAxis(); ++k)
+				{
+					maze2d[j][k] = this.getMaze()[j][n][k];
+				}
+		return maze2d;
+	}
+	
+	public int[][] getCrossSectionByZ(int n) throws IndexOutOfBoundsException
+	{
+		int[][] maze2d = new int[this.getxAxis()][this.getyAxis()];
+		
+			for (int j = 0; j < this.getxAxis(); ++j)
+				for (int k=  0; k < this.getyAxis(); ++k)
+				{
+					maze2d[j][k] = this.getMaze()[j][k][n];
+				}
+		return maze2d;
+	}
+	
+	public int getxAxis() {
+		return xAxis;
+	}
+
+	public void setxAxis(int xAxis) {
+		this.xAxis = xAxis;
+	}
+
+	public int getyAxis() {
+		return yAxis;
+	}
+
+	public void setyAxis(int yAxis) {
+		this.yAxis = yAxis;
+	}
+
+	public int getzAxis() {
+		return zAxis;
+	}
+
+	public void setzAxis(int zAxis) {
+		this.zAxis = zAxis;
+	}
+
+	public int[][][] getMaze() {
+		return maze;
+	}
+
+	public void setMaze(int[][][] maze) {
+		this.maze = maze;
+	}
+
+	public Position getStart() {
+		return start;
+	}
+
+	public Position getGoal() {
+		return goal;
+	}	
+
+	public Position getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(Position current) {
+		this.current = current;
+	}
+	
+	public byte[] toByteArray()
+	{
+		byte[] res = new byte[9+(this.getxAxis()*this.getyAxis()*this.getzAxis())];
+		
+		res[0] = (byte)this.getStartPosition().getX();
+		res[1] = (byte)this.getStartPosition().getY();
+		res[2] = (byte)this.getStartPosition().getZ();
+		res[3] = (byte)this.getGoal().getX();
+		res[4] = (byte)this.getGoal().getY();
+		res[5] = (byte)this.getGoal().getZ();
+		res[6] = (byte)this.getxAxis();
+		res[7] = (byte)this.getyAxis();
+		res[8] = (byte)this.getzAxis();
+		int count = 9;
+		for (int i = 0; i < this.getxAxis(); ++i)
+		{
+			for (int j = 0; j < this.getyAxis(); ++j)
+			{
+				for (int k=  0; k < this.getzAxis(); ++k)
+				{
+					res[count] = (byte)this.getMaze()[i][j][k];
+					count++;
+				}
+			}
+		}
+		return res;
+	}
+
+	public Maze3D(byte[] mazeBytes)
+	{
+		this.setStart(new Position(mazeBytes[0],mazeBytes[1],mazeBytes[2]));
+		this.setGoal(new Position(mazeBytes[3],mazeBytes[4],mazeBytes[5]));
+		
+		this.setxAxis(mazeBytes[6]);
+		this.setyAxis(mazeBytes[7]);
+		this.setzAxis(mazeBytes[8]);
+		this.setMaze(new int[this.getxAxis()][this.getyAxis()][this.getzAxis()]);
+		int count = 9;
+		for (int i = 0; i < this.getxAxis(); ++i)
+		{
+			for (int j = 0; j < this.getyAxis(); ++j)
+			{
+				for (int k=  0; k < this.getzAxis(); ++k)
+				{
+					this.maze[i][j][k] = mazeBytes[count];
+					count++;
+				}
+			}
+		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Maze3D other = (Maze3D) obj;
+		if (!Arrays.deepEquals(maze, other.maze))
+			return false;
+		return true;
+	}
+	
 }
 
