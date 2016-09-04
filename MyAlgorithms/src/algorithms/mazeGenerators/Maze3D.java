@@ -7,7 +7,7 @@ import java.util.Random;
 /**
 * The Maze3d program implements an application that create a maze 3d.
 *
-* @author  Niv Yona
+* @author  Niv Yona & Raz David
 * @version 1.0
 * @since   01-08-2016 
 */

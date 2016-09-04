@@ -3,6 +3,15 @@ package io;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+* The MyCompressorOutputStream class takes stream and compress it to a byte array
+*
+* @author  Niv Yona @ Raz David
+* @version 1.0
+* @since   01-08-2016 
+*/
+
+
 public class MyCompressorOutputStream extends OutputStream {
 
 	private OutputStream out;
@@ -15,7 +24,7 @@ public class MyCompressorOutputStream extends OutputStream {
 	public void write(byte[] input) throws IOException {
 		byte last = input[0];
 		int count = 0;
-		for (byte b : input)
+		for (byte b : input) // Compressing the data
 		{
 			if(b == last)
 			{

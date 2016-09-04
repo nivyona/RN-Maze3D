@@ -3,6 +3,14 @@ package io;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+* The MyDecompressorInputStream class takes byte array and deompress it to a stream 
+*
+* @author  Niv Yona @ Raz David
+* @version 1.0
+* @since   01-08-2016 
+*/
+
 public class MyDecompressorInputStream extends InputStream { 
 
 	private InputStream in;
@@ -20,7 +28,7 @@ public class MyDecompressorInputStream extends InputStream {
 		int count;
 		byte status;
 		int bcounter = 0;
-		while(in.available() > 0)
+		while(in.available() > 0) // Decompressing the data
 		{
 			count = in.read();
 			status = (byte)in.read();
